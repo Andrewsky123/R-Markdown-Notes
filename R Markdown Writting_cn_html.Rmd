@@ -21,10 +21,8 @@ colorlinks: yes
 ---
 
 ```{r setup, include=FALSE}
-# 这是R代码块及输出图表的全局设置，如‘echo = T’表示在正文中显示代码
 knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F,
                       comment=NA, cache=F, fig.align='center', out.width='75%', fig.asp=.75)
-# in practice suggest: out.width='75%', fig.asp=.75
 ```
 
 # 介绍
