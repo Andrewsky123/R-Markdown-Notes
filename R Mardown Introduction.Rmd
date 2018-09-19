@@ -632,7 +632,7 @@ There is a helper function `write_bib()` in **knitr** to generate BibTeX entries
 
 ```{r write-bib, comment='', warning=FALSE}
 # the second argument can be a .bib file
-knitr::write_bib(c('knitr','bookdown'), '', width = 60)
+knitr::write_bib(c('knitr','bookdown','tidyverse','ggplot2'), '', width = 60)
 ```
 
 Once you have one or multiple `.bib` files, you may use the field `bibliography` in the YAML metadata of your first R Markdown document (which is typically `index.Rmd`), and you can also specify the bibliography style via `biblio-style` (this only applies to PDF output), e.g.,
