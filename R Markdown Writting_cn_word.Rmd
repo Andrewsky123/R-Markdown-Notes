@@ -27,7 +27,13 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F,
 
 # 标题一
 
-参考文献引用：上标引用[@R-bookdown]，序号引用 @R-rmarkdown，中文[@ke2017]。
+学术论文一般做法是，把所有文献以 **BibTeX** 格式保存为一个`.bib`文件，然后在论文中随时插入引用。
+
+**引用**：如果是作者-年格式，`@R-rmarkdown` 表示作者姓名（年份），而 `[@R-rmarkdown]` 则表示（作者 年份）。
+
+如果是编号格式，则`@R-rmarkdown`表示序号，而 `[@R-rmarkdown]` 则表示序号为上标。
+
+示例 @R-rmarkdown，示例[@R-rmarkdown]， 中文[@ke2017]。
 
 章节交叉引用：在第 \@ref(h2) 节讲数学公式的引用。 
 
