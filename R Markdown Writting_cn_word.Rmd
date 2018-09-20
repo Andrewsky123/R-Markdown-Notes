@@ -3,10 +3,10 @@ title: "Word 参考文档"
 author:
   - WSJ
   - College of Economics，Shenzhen University
-date:  "`r Sys.Date()`"
+#date:  "`r Sys.Date()`"
 output:
   bookdown::word_document2: 
-    reference_docx: template/word_style.docx
+    reference_docx: template/reference_word.docx
     fig_caption: yes
     toc: yes
     toc_depth: 3
@@ -33,7 +33,7 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F,
 
 如果是编号格式，则`@R-rmarkdown`表示序号，而 `[@R-rmarkdown]` 则表示序号为上标。
 
-示例 @R-rmarkdown，示例[@R-rmarkdown]， 中文[@ke2017]。
+示例 @R-rmarkdown，示例[@xie2015]， 中文[@ke2017]。
 
 章节交叉引用：在第 \@ref(h2) 节讲数学公式的引用。 
 
@@ -64,7 +64,7 @@ and $a$ and $b$ denote the lengths of the other two sides, we have
 
 $$a^2 + b^2 = c^2$$
 ```
-<br>
+<br/>
 
 # 标题一：图表
 
@@ -86,11 +86,13 @@ knitr::kable(
   head(mtcars[, 1:5], 5), booktabs = TRUE,
   caption = 'mtcars数据'
 )
-```
+```  
+
+<br/>
 
 R Markdown 输出 Word 文档总是有不完美的地方，但好在多数功能都在，个别地方调整很容易。
 
-<br>
+-----
 
 # 参考文献 {-}
 
