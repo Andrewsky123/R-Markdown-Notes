@@ -6,7 +6,7 @@ author:
 #date:  "`r Sys.Date()`"
 output:
   bookdown::word_document2: 
-    reference_docx: template/word_style02.docx
+    reference_docx: template/reference_word.docx
     fig_caption: yes
     toc: yes
     toc_depth: 3
@@ -27,30 +27,43 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F,
 
 # 基本语法
 
-## 行内语法
+## 行内语法  
 
-- 斜体： _text_，`_text_` or `*text*`
-- 黑体：**text**，`__text__` or `**text**`
-- 下标：两个`~`包夹，`H~2~SO~4~` renders H~2~SO~4~
-- 上标：两个`^`包夹， `R^2^` renders R^2^
-- 显示代码：`code`和```code```显示代码块
-- 行内运行R代码：``r sqrt(100)``， 100的开根号等于 `r sqrt(100)`
-- 链接网站：`[text](link)`,例如 [RStudio](https://www.rstudio.com)
-- 插入图片：`![image title](path/to/image)`
-- 脚注：`^[]`, e.g., 这里是脚注^[This is a footnote.]
+  - 斜体： _text_，`_text_` or `*text*`
+  
+  - 黑体：**text**，`__text__` or `**text**`
+  
+  - 下标：两个`~`包夹，`H~2~SO~4~` renders H~2~SO~4~
+  
+  - 上标：两个`^`包夹， `R^2^` renders R^2^
+  
+  - 显示代码：`code`和```code```显示代码块
+  
+  - 行内运行R代码：``r sqrt(100)``， 100的开根号等于 `r sqrt(100)`
+  
+  - 链接网站：`[text](link)`,例如 [RStudio](https://www.rstudio.com)
+  
+  - 插入图片：`![image title](path/to/image)`
+  
+  - 脚注：`^[]`, e.g., 这里是脚注^[This is a footnote.]
+
 
 ## 模块语法
 
 Section headers can be written after a number of pound signs, e.g.,
+
 ```markdown
 # First-level header
 ## Second-level header
 ### Third-level header
 ```
+
 If you do not want a certain heading to be numbered, you can add `{-}` after the heading, e.g.,
+
 ```markdown
 # Preface {-}
 ```
+
 Unordered list items start with `*`, `-`, or `+`, and you can nest one list within another list by indenting the sub-list by four spaces, e.g.,
 
 ```markdown
@@ -64,12 +77,17 @@ Unordered list items start with `*`, `-`, or `+`, and you can nest one list with
 The output is:
 
 - one item
+
 - one item
+
 - one item
+    
     - one item
+    
     - one item
 
 Ordered list items start with numbers (the rule for nested lists is the same as above), e.g.,
+
 ```markdown
 1. the first item
 2. the second item
@@ -104,9 +122,11 @@ Or indent by four spaces:
 
 # 数学公式
 
+
 行内公式`$y=x^2$`显示$y=x^2$，整行公式（display style）用两双美元符号之间表示,  `$$f(k) = {n \choose k} p^{k} (1-p)^{n-k}$$`, 结果:
 
 $$f\left(k\right)=\binom{n}{k}p^k\left(1-p\right)^{n-k}$$
+
 
 You can also use math environments inside `$ $` or `$$ $$`, e.g.,
 
@@ -363,11 +383,15 @@ $$a^2 + b^2 = c^2$$
 
 ```{definition, char}
 随机变量 $X$ 的特征函数定义为
+
 $$\varphi _{X}(t)=\operatorname {E} \left[e^{itX}\right], \; t\in\mathcal{R}$$
+
 ```
 
 ```{example}
-We derive the characteristic function of $X\sim U(0,1)$ with the probability density function $f(x)=\mathbf{1}_{x \in [0,1]}$.
+We derive the characteristic function of $X\sim U(0,1)$ with the probability density function
+
+$f(x)=\mathbf{1}_{x \in [0,1]}$.
 
 \begin{equation*}
 \begin{split}
@@ -398,9 +422,14 @@ $$\varphi _{S_{n}}(t)=\prod_{i=1}^n\varphi _{X_i}(a_{i}t)=\varphi _{X_{1}}(a_{1}
 ```
 
 ```{proposition}
-The distribution of the sum of independent Poisson random variables $X_i \sim \mathrm{Pois}(\lambda_i),\: i=1,2,\cdots,n$ is $\mathrm{Pois}(\sum_{i=1}^n\lambda_i)$.
+The distribution of the sum of independent Poisson random variables
+$X_i \sim \mathrm{Pois}(\lambda_i),\: i=1,2,\cdots,n$ is
+$\mathrm{Pois}(\sum_{i=1}^n\lambda_i)$.
+
 ```
+
 This is the characteristic function of a Poisson random variable with the parameter $\lambda=\sum_{i=1}^n \lambda_i$. From Lemma \@ref(lem:chf-pdf), we know the distribution of $P_n$ is $\mathrm{Pois}(\sum_{i=1}^n\lambda_i)$.
+
 
 ```{remark}
 In some cases, it is very convenient and easy to figure out the distribution of the sum of independent random variables using characteristic functions.
@@ -408,10 +437,14 @@ In some cases, it is very convenient and easy to figure out the distribution of 
 
 ```{corollary}
 The characteristic function of the sum of two independent random variables $X_1$ and $X_2$ is the product of characteristic functions of $X_1$ and $X_2$, i.e.,
+
  $$\varphi _{X_1+X_2}(t)=\varphi _{X_1}(t) \varphi _{X_2}(t)$$
+ 
 ```
 
+
 # 一个ggplot2作图的例子
+
 
 `ggplot2`的几个基本概念：
 
@@ -423,7 +456,9 @@ The characteristic function of the sum of two independent random variables $X_1$
 - 分面（Facet）：将数据分解为子集，进行联合展示
 - 图层（Layer）：对所需的绘图操作进行一层一层叠加，最终得到所需图形
 
+
 ## 散点图
+
 
 ```{r points, fig.cap='ggplot2 with points'}
 library(ggplot2)
@@ -464,6 +499,7 @@ p + geom_point() + stat_smooth()
 p + geom_point(aes(colour = factor(year), size = displ)) + 
   stat_smooth()   # 排量越大，点越大
 ```
+
 ## 修改透明度
 
 数据点太密集，增加透明度，解决点与点之间的重叠的问题, 见图 \@ref(fig:trans)。
