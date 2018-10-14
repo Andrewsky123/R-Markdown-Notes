@@ -1,6 +1,9 @@
 ---
 title: "如何用 R Markdown 写学术文档？"
-author: "Shujia Wong"      
+author: |
+  | Shujia Wong
+  | 深圳大学经济学院
+  | wangsj@szu.edu.cn
 #date:  "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%Y年%m月%d日')`"
 #geometry: left = 3.18cm, right = 3.18cm, top = 2.0cm, bottom = 2.0cm
@@ -8,8 +11,8 @@ date: "`r format(Sys.time(), '%Y年%m月%d日')`"
 output: 
   bookdown::pdf_document2: 
     keep_tex: yes
-    dev: "cairo_pdf" # Allow Chinese figure title and labels
-    latex_engine: xelatex # for chinese
+    dev: "cairo_pdf"  # Allow Chinese figure title and labels
+    latex_engine: xelatex  # for chinese
     template: template/template_article_zh.tex   #latex template
     #pandoc_args:  --top-level-division=chapter
     fig_caption: yes
@@ -23,7 +26,7 @@ output:
       toc: 
         collapse: subsection
     self.contained: yes
-    table_css: TRUE
+    #table_css: TRUE
     number_sections: TRUE
     split_by: none
   bookdown::html_document2: 
@@ -46,6 +49,11 @@ bibliography: [bib/packages.bib,bib/book.bib]
 bibli0-style: apalike
 link-citations: yes
 colorlinks: yes
+header-includes:
+  - \usepackage{endfloat}    
+  - \usepackage{setspace}\doublespacing
+  - \usepackage{lineno}
+  - \linenumbers
 #lot: yes
 #lof: yes
 ---
@@ -53,7 +61,7 @@ colorlinks: yes
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   echo = TRUE,           # show code
-  warning = FALSE,       # don't show warnings
+  warning = TRUE,       # don't show warnings
   message = FALSE,       # don't show messages (less serious warnings)
   cache = FALSE,         # set to TRUE to save results from last compilation
   # pdf.options(family="GB1") #生成PDF图时显示中文
@@ -638,13 +646,14 @@ RStudio 还有很多使用手册，不妨去下载备用：<https://www.rstudio.
 - `fig.cap`: 图形和表格的标题。
 - `child`: 主文件中包含的子文件。
 
+
 ## 图形 {#graph}
 
 ### 插入图片
 
 **方式一**：Markdown插入。
 
-方法简单，但不能自动编号，大小和位置不可控，而且输出html和pdf时显示结果会不一致。
+方法简单，但不能自动编号，而且输出html和pdf时显示结果会不一致。
 
 - 插入网络图片：`![](网址)`
 - 插入本地图片：`![](images/tline.png)`（子目录images下），显示为：
@@ -653,7 +662,7 @@ RStudio 还有很多使用手册，不妨去下载备用：<https://www.rstudio.
 
 **方式二**： R Mardown插入。
 
-用*knitr*函数 `knitr::include_graphics()` 插入图形（设置了宽度等于页面的50%，居中）。
+用*knitr*函数 `knitr::include_graphics()` 插入图形（图\@ref(fig:run)）（设置了宽度等于页面的50%，居中）。
 
 ```{r run, out.width='50%', fig.cap='插入本地图形'}
 knitr::include_graphics('images/run.jpg')
@@ -669,12 +678,16 @@ knitr::include_graphics('images/run.jpg')
 
 ### R做图
 
+R作图可以指定大小和对齐方式（见图\@ref(fig:pressure-plot)）。
+
 ```{r pressure-plot, fig.asp=.7, fig.width=6, fig.cap='图形指定大小和位置', fig.align='center', out.width='75%'}
 par(mar = c(4, 4, .1, .1))
 plot(pressure, pch = 19)
 ```
 
 如果一幅图里有多个子图，必须设 `fig.show='hold'`，并排图形加起来宽度不能超过文本宽度。如两个子图并排，每个不能超过`50%`^[因为word不允许多子图，所以本文无法输出word格式。如果word确实需要多个子图，可以先保存到本地，然后再插入。]。
+
+见图\@ref(fig:multiplot)。
 
 ```{r multiplot, out.width='45%', fig.show='hold', fig.cap='两个图形并排'}
 par(mar = c(4, 4, .1, .1))
@@ -791,14 +804,14 @@ p + geom_point(aes(colour = class, size = displ), alpha=0.5) +
 - `theme()`主题，更偏向于格式的修改。`text = element_text(family = "STHeiti")` 是对字体进行修改，变为黑体。Windows系统可以不添加这行，一样会显示前面labs()中设定的中文。而如果是Mac或者Linux系统，由于字体的缺失，会显示成一个一个的框框，在图像上显示不了中文字。
 - `plot.title = element_text(hjust = 0.5)` 调整标题的位置，不加这行，标题会居左，加上才会居中。`hjust = 0.5` 其实就是左右移动的意思，0.5表示居中。
 
+
 ## 表格 
 
 ###  用R Markdown函数`kable()`制作表格
 
-用法： `knitr::kable()`
+用法：`knitr::kable()`
 
 这是R Markdown显示表格最方便的方式，可以把数据框或模型结果转化成有格式的表格， 支持HTML、docx、LaTeX等格式，并且表格有标题选项，可以自动编号和交互引用。
-
 
 ```{r table-single, tidy=FALSE}
 knitr::kable(
@@ -820,14 +833,16 @@ knitr::kable(cofs, booktabs = TRUE,  caption = '回归系数及显著性检验�
 在LaTex的pdf中，表格和图形经常会浮动位置。如果不希望表格浮动（因此表格允许跨页），可以用LaTeX软件包[**longtable**](https://www.ctan.org/pkg/longtable)。
 当然，在html网页中不会出现这种情况，因为网页是不分页的。
 
-用法：在 `kable()`中指定`longtable = TRUE`。
+用法：在 `kable()`中指定`longtable = TRUE`。如
 
-```{r longtable, tidy=FALSE}
+````markdown
+`r ''````{r longtable, tidy=FALSE}
 knitr::kable(
   iris[1:10, ], longtable = TRUE, booktabs = TRUE,
   caption = '用longtable包生成的一个表格'
 )
 ```
+````
 
 ### 用R软件包xtable和stargazer制作表格
 
@@ -837,9 +852,11 @@ xtable不仅对数据框，还可以对许多统计模型的结果输出表格,�
 
 还有一个软件包[stargazer](https://cran.r-project.org/web/packages/stargazer/index.html)与xtable类似。
 
+
 ### Markdown表格
 
-Markdown表格由简单文本表示，转化为HTML、docx等格式后就变成了富文本的表格。Markdown表格默认是不编号的，不能交互引用。为了使得其可交互引用，需要在表标题的`Table:`处加上引用标志，如 `(\#tab:label)`。
+Markdown表格由简单文本表示，转化为HTML、docx等格式后就变成了富文本的表格。Markdown表格默认是不编号的，不能交互引用。为了使得其可交互引用，需要在表标题的 `Table:` 处加上引用标志，如 `(\#tab:label)`。
+
 
 #### 管道表
 
@@ -852,13 +869,14 @@ Markdown表格由简单文本表示，转化为HTML、docx等格式后就变成�
 
 这种方法不需要输入内容上下对齐，适用于中文内容。
 
-Table:(\#tab:pipe-table) 管道表示例
+Table:(\#tab:pipe-table) 管道表
 
 | 姓名   |  收入      |    职业          | 颜色偏好  |
 |:-------|-----------:|:----------------:|-----------|
 | 赵四海  |    123456  |   业务经理      |   红      |
 | 刘英    |        50   |      无        |   蓝      |
 | 钱德里  |      3200   |    保洁        |    灰     |
+
 
 #### 简单表
 
