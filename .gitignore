@@ -1,8 +1,0 @@
-.git
-.Rproj.user
-.Rhistory
-.RData
-**/rsconnect/
-.DS_Store
-**/*.min.map
-revdep
