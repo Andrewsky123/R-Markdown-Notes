@@ -24,7 +24,7 @@ header-includes:
 ---
 
  ```{r Setup, message=FALSE, warning=FALSE, include=FALSE}
-# knitr::opts_chunk$set(fig.pos = 'p')  # Places figures on their own pages
+knitr::opts_chunk$set(fig.pos = 'p')  # Places figures on their own pages
 knitr::opts_chunk$set(out.width = '100%', dpi=300)
 
 # I usually load my libraries up front to keep things organized
@@ -282,7 +282,7 @@ Please note that in the introductory laboratory course, you will not be required
 
 List all literature cited in your paper, in alphabetical order, by first author. In a proper research paper, only primary literature is used (original research articles authored by the original investigators). Be cautious about using web sites as references - anyone can put just about anything on a web site, and you have no sure way of knowing if it is truth or fiction. If you are citing an on line journal, use the journal citation (name, volume, year, page numbers). Some of your papers may not require references, and if that is the case simply state that "no references were consulted." 
 
-# Selekted Writing Rules
+# Selected Writing Rules
 
 1. Verbs HAS to agree with their subjects. 
 2. Prepositions are not words to end sentences with. 
@@ -334,7 +334,7 @@ p + geom_point(aes(colour = class, size = displ), alpha = 0.5) +
 
 Figure \@ref(fig:multiplot): Two plots placed side by side.
 
-```{r multiplot, out.width='50%', fig.show='hold', fig.cap='Two plots placed side by side.'}
+```{r multiplot, out.width='45%', fig.show='hold', fig.cap='Two plots placed side by side.'}
 par(mar = c(4, 4, .1, .1))
 plot(pressure, pch = 19, type = 'b')
 plot(cars, pch = 19)
