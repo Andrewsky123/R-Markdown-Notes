@@ -1,7 +1,7 @@
 ---
 title: "如何用 R Markdown 写学术文档？"
 author: |
-  | Shujia Wong
+  | 王树佳
   | 深圳大学经济学院
   | wangsj@szu.edu.cn
 #date:  "`r Sys.Date()`"
@@ -10,7 +10,7 @@ date: "`r format(Sys.time(), '%Y年%m月%d日')`"
 #fontsize: 12pt
 output: 
   bookdown::pdf_document2: 
-    keep_tex: yes
+   # keep_tex: yes
     dev: "cairo_pdf"  # Allow Chinese figure title and labels
     latex_engine: xelatex  # for chinese
     template: template/template_article_zh.tex   #latex template
