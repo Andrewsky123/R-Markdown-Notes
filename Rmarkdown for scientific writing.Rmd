@@ -15,6 +15,7 @@ output:
     latex_engine: xelatex  # for chinese
     template: template/template_article_zh.tex   #latex template
     #pandoc_args:  --top-level-division=chapter
+    toc: yes   # table of contents
     fig_caption: yes
     number_sections: yes
     toc_depth: 3
@@ -29,15 +30,6 @@ output:
     #table_css: TRUE
     number_sections: TRUE
     split_by: none
-  bookdown::html_document2: 
-    css: bib/style.css
-    fig_caption: yes
-    theme: readable
-    #highlight: monochrome
-    number_sections: yes
-    toc: yes
-    toc_depth: 3
-    toc_float: True #目录作为侧边栏
   bookdown::word_document2: 
     reference_docx: template/reference_word.docx
     fig_caption: yes
@@ -45,8 +37,9 @@ output:
     toc_depth: 3
 citation_package: natbib
 bibliography: [bib/packages.bib,bib/book.bib]
-#csl: bib/chinese-gb7714-1987-numeric.csl
-bibli0-style: apalike
+#csl: bib/elsevier-vancouver.csl
+csl: bib/chinese-gb7714-1987-numeric.csl
+#bibli0-style: apalike
 link-citations: yes
 colorlinks: yes
 header-includes:
@@ -65,13 +58,16 @@ knitr::opts_chunk$set(
   echo = TRUE,           # show code
   warning = FALSE,       # don't show warnings
   message = FALSE,       # don't show messages (less serious warnings)
-  cache = FALSE,         # set to TRUE to save results from last compilation
+  cache = TRUE,         # set to TRUE to save results from last compilation
   # pdf.options(family="GB1") #生成PDF图时显示中文
   fig.align = 'center',  # center figures
   out.width = '75%',     # Set figure size to 75% of textline width
   fig.asp = .75          # width-height ratio 
 )
-#  library(tidyverse)    # Load libraries you need to use
+# Load libraries you need to use
+  library(tidyverse) 
+  library("bookdown")
+  library("bookdownplus")
   set.seed(2018)         # make random results reproducible
 ```
 
@@ -137,13 +133,18 @@ abline(fit, col = 'red')
 
 ### 需要安装的软件
 
-首先安装最新版本的R软件：
+首先安装最新版本的R软件
 
-* R：https://www.r-project.org/
+1.  下载R：https://www.r-project.org/。   
+2.  根据Xie Yihui的经验，Windows中安装R注意几点^[https://bookdown.org/yihui/r-ninja/setup.html#configure-r]：    
+    - 把默认安装目录中的R版本号去掉，比如R默认装在C:/Program Files/R/R-3.5.3/，不要接受这个结果，把它改成C:/Program Files/R/，以后升级软件仍然安装在这个文件夹；    
+    - 不能安装在中文目录下；    
+    - 用自定义方式安装。不要安装翻译文件。        
+3. 配置`.Renviron`文件。这个文件是为R自身设置一些环境变量的，这里面的环境变量仅仅对R有效，不改变操作系统的设置。`.Renviron`文件放在用户目录下，也就是~/。如果文件不存在，可以用如下命令自动创建: `file.edit('~/.Renviron')`。这个文件可以直接打开编辑，推荐放一个环境变量在里面，就是`R_LIBS_USER="~/R"`，它指定R的软件包安装目录在`~/R`。重启R，以后安装R包就优先安装到`~/R`目录下。因为这个目录是固定的，所以即使将来升级R版本，R也会使用这个目录装包，你再也不必更新关于包的配置。
 
 然后安装 RStudio：
 
-* RStudio：https://www.rstudio.com/
+ RStudio：https://www.rstudio.com/
 
 ### RStudio基本设置
 
@@ -158,6 +159,11 @@ abline(fit, col = 'red')
 - 在`Code => Saving => Default text Encoding` 选择 `UTF-8`  
 
 最好每项工作都单独建立一个文件夹，把性质相同的文档归到同一个子目录（比如要插入的图形、需调用的参考文献、设置的格式和参数等等）。然后建立RStudio项目(project)，每次开始都打开这个project，这样项目的一切材料都会齐备，RStudio的工作目录不会搞乱。
+
+有时用`xelatex`编译会很慢，往往是中文字体缓存刷新问题。
+解决办法：    
+  1. 清空 `C:\texlive\2016\texmf-var\fonts\cache` 中的文件；    
+  2. 用管理员命令运行`fc-cache -r -v`重新生成字体缓存。
 
 ### 安装常用软件包
 
@@ -278,6 +284,7 @@ output:
     #pandoc_args:  --top-level-division=chapter
     fig_caption: yes
     number_sections: yes
+    toc: yes
     toc_depth: 3
     #toc_unnumbered: no
     #toc_appendix: yes
@@ -383,9 +390,8 @@ Bookdownplus[@R-bookdownplus] 对Bookdown进行了重新配置，制作了多种
 
 ## 一般学术文档修改
 
-(1) 到 csl样式库 https://www.zotero.org/styles 下载合适的样式（有几百种），
-  比如 `chinese-gb7714-1987-numeric.csl`，放在**工作目录**下的`bib`子目录。
-(2) 注释掉 `#bibli0-style: apalike`， 然后增加一行：  
+(1) 到 csl样式库 https://www.zotero.org/styles 查看合适的样式（有几百种），可以到 https://github.com/citation-style-language/styles 去下载源文件(Raw)，比如 `chinese-gb7714-1987-numeric.csl`，放在**工作目录**下的`bib`子目录。
+(2) 样式的调用：注释掉 `#bibli0-style: apalike`， 然后增加一行即可：  
    `csl: bib/chinese-gb7714-1987-numeric.csl`
    
 为了试试中文的引用，我通过Zotero产生一个bibtex格式中文文献（注意自动生成的中文`key`显示为`--`，需要自行修改），例如[@ke2017]。
@@ -446,7 +452,7 @@ Markdown中，一个段落由一行或连续的多行组成。段落之间以**�
 
 ### 列表
 
-不编号列表：以 `*`、 `-` 或 `+`开头，再空四个空格可以嵌套，如：
+不编号列表：以 `*`、 `-` 或 `+`开头，空两格。下一行再空四个空格可以嵌套，如：
 
 ```markdown
 - 第一项
@@ -664,7 +670,7 @@ g(X_{n}) &= g(\theta)+g'({\tilde{\theta}})(X_{n}-\theta) \notag \\
 
 LaTex参考手册：<https://wch.github.io/latexsheet/latexsheet-a4.pdf>
 
-RStudio 还有很多使用手册，不妨去下载备用：<https://www.rstudio.com/resources/cheatsheets/>。
+RStudio 的Help还有很多使用手册(Cheatsheets)，也可以去下载：<https://www.rstudio.com/resources/cheatsheets/>。
 
 ## R代码块 
 
@@ -676,11 +682,9 @@ RStudio 还有很多使用手册，不妨去下载备用：<https://www.rstudio.
 代码块可以运行代码并输出文本结果、图形和表格，使得R和Markdown方便的放在一起^[为了显示在R Markdown中实际输入的代码块(包括首尾标志)， 需要将代码段整体地缩进4个空格，并在三个反单撇号前面加上
 ``` ``r ''`r ''` ```， 即生成一个空字符串的行内R代码。]。
 
-````markdown
-`r ''````{r}
-```
-````
-
+    `r ''````{r}
+    ```
+    
 代码块有丰富的控制选项，可参考 *knitr* 说明文档 <https://yihui.name/knitr/options>。
 
 **代码块常用选项**：
@@ -706,6 +710,16 @@ RStudio 还有很多使用手册，不妨去下载备用：<https://www.rstudio.
 - `fig.cap`: 图形和表格的标题。
 - `child`: 主文件中包含的子文件。
 
+例如：
+
+**只显示代码**： `{r eval=FALSE}`
+
+**显示代码+编译结果**：`{r tidy=TRUE,warning=FALSE,message=FALSE}`
+
+**只要结果，不显示代码、错误提示和报警**：`{r echo=FALSE,warning=FALSE,message=FALSE}`
+
+**输出时不显示代码和编译的结果，仅自己在Rmarkdown中调出结果或者用于预览**：  
+` {r include=FALSE}`
 
 ## 图形 {#graph}
 
@@ -895,14 +909,12 @@ knitr::kable(cofs, booktabs = TRUE,  caption = '回归系数及显著性检验�
 
 用法：在 `kable()`中指定`longtable = TRUE`。如
 
-````markdown
-`r ''````{r longtable, tidy=FALSE}
-knitr::kable(
-  iris[1:10, ], longtable = TRUE, booktabs = TRUE,
-  caption = '用longtable包生成的一个表格'
-)
-```
-````
+    `r ''````{r longtable, tidy=FALSE}
+    knitr::kable(
+    iris[1:10, ], longtable = TRUE, booktabs = TRUE,
+    caption = '用longtable包生成的一个表格'
+    )
+    ```
 
 ### 用R软件包xtable和stargazer制作表格
 
@@ -1116,14 +1128,19 @@ Table:(\#tab:corss-ref) 交叉引用的方法列表
 
 学术论文一般做法是，把所有文献以 **BibTeX** 格式保存为一个`.bib`文件，然后在论文中随时插入引用。
 
+参考文献在正文中的插入非常简单，只要在要引用的地方使用`[@reference key]`，就能实现引用。 如果同一个地方要引用多个文献，则是`[@reference key1; @reference key2]`。 在bib文档中，如`@Manual{R-ggplot2`，其中的`R-ggplot2`就是reference key，复制粘贴到[\@]里面即可。
+
 **引用方式**：
 
 一般引用有两种方式，一种是作者-年格式，另一种是数字格式。当然，一篇文章内要统一用一种格式。
 
-- 作者-年格式：`@key` 表示作者姓名（年份），而 `[@key]` 则表示（作者 年份）。
-- 数字编号格式：`@key`表示序号，`[@key]` 则表示序号为上标。
+**作者-年格式**(apalike样式)：`@key` 表示*作者姓名（年份）*，而 `[@key]` 则表示（*作者 年份*）。
 
-示例 @R-rmarkdown；示例[@R-rmarkdown]。
+**数字编号格式**(chinese-gb7714-1987-numeric.csl样式）：`@key`表示[序号]，`[@key]` 则表示[序号]为上标。  
+
+**其它格式**：`@key`表示[序号]，`[@key]` 表示上标[序号]，网页[序号]上标`<sup>[@key]</sup>`。
+
+**示例**(chinese-gb7714-1987-numeric.csl样式)：` @R-rmarkdown`结果显示 @R-rmarkdown； `[@R-rmarkdown;@xie2015;@R-ggplot2]`结果显示[@R-rmarkdown;@xie2015;@R-ggplot2]。  
 
 如何产生Bibtex文献格式？
 
@@ -1132,9 +1149,9 @@ Table:(\#tab:corss-ref) 交叉引用的方法列表
 - 可以在知网、谷歌学术、百度学术等网站查找文献，产生Bibtex引用格式。
 
 - 一些常用软件包也可以用**knitr** 的函数`write_bib()`产生。 下面代码产生knitr、bookdown、tidyverse和ggplot2的bibtex格式文献。
-```{r write-bib, comment='', warning=FALSE}
+```{r packages_bib, comment='', warning=FALSE}
 # the second argument can be a .bib file
-knitr::write_bib(c('knitr','bookdown','tidyverse','ggplot2'), '', width = 60)
+knitr::write_bib(c('knitr','bookdown','tidyverse','ggplot2'), 'mypackages.bib', width = 60)
 ```
 
 文献引用要在R Markdown文档的开头的yaml部分指定文献文档名（.bib文件）和引用风格（biblio-style）。
@@ -1146,6 +1163,25 @@ biblio-style: "apalike"
 link-citations: true
 ---
 ```
+
+# 创建Git版本跟踪项目
+
+Rstudio 已经聚合了Git跟踪项目，可以方便地进行版本控制。
+
+登进Github. 新建一个仓库（或打开旧仓库），点开`Clone or Download`，右边拷贝SSH clone URL(注意不是https url!)。
+
+```{r out.width='50%', fig.cap='拷贝SSH地址到RStudio'}
+knitr::include_graphics('images/gitclone.PNG')
+```
+打开RStudio，File -> New Project （如果已经存在与Github仓库相同的Project，直接打开`.Proj`文件）,
+打开-> Version Control -> Git -> Paste the SSH clone URL。注意New Project的名字和Github仓库名字要一致。
+
+创建成功后，Rstudio自动将工作目录转到新创建的项目，并且在右上操作框出现Git按键，通过Rstudio 或者Github Desktop 来实现Github 托管项目都可以。
+
+```{r out.width='75%', fig.cap='拷贝SSH地址到RStudio'}
+knitr::include_graphics('images/RstudioGit.PNG')
+```
+
 # 总结
 
 本文简单介绍了如何用R Markdown写一般性研究短文（标题、公式、图表、参考文献等都能自动排版和编号）、中等篇幅的研究论文（可以交互引用）和长篇幅的研究文章（书籍、研究报告、学位论文等）等。还介绍了R Markdown的一些基本的用法，以方便在写作过程中随时参考。
@@ -1158,4 +1194,4 @@ LaTex的一些前端（如LyX）也可以做到R运行与文本的结合，但�
 
 \newpage
 
-# 参考文献 {-}
+**参考文献**
