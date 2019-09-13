@@ -139,7 +139,7 @@ abline(fit, col = 'red')
   - 把默认安装目录中的R版本号去掉，比如R默认装在C:/Program Files/R/R-3.5.3/，不要接受这个结果，把它改成C:/Program Files/R/，以后升级软件仍然安装在这个文件夹；      
   - 不能安装在中文目录下；    
   - 用自定义方式安装。不要安装翻译文件。          
-  - 配置`.Renviron`文件。这个文件是为R自身设置一些环境变量的，这里面的环境变量仅仅对R有效，不改变操作系统的设置。`.Renviron`文件放在用户目录下，也就是~/。如果文件不存在，可以用如下命令自动创建: `file.edit('~/.Renviron')`。这个文件可以直接打开编辑，推荐放一个环境变量在里面，就是`R_LIBS_USER="~/R"`，它指定R的软件包安装目录在`~/R`。重启R，以后安装R包就优先安装到`~/R`目录下。因为这个目录是固定的，所以即使将来升级R版本，R也会使用这个目录装包，y以后再也不必更新关于包的配置。  
+  - 配置`.Renviron`文件。这个文件是为R自身设置一些环境变量的，这里面的环境变量仅仅对R有效，不改变操作系统的设置。`.Renviron`文件放在用户目录下，也就是~/。如果文件不存在，可以用如下命令自动创建: `file.edit('~/.Renviron')`。这个文件可以直接打开编辑，推荐放一个环境变量在里面，就是`R_LIBS_USER="~/R"`，它指定R的软件包安装目录在`~/R`。重启R，以后安装R包就优先安装到`~/R`目录下。因为这个目录是固定的，所以即使将来升级R版本，R也会使用这个目录装包，以后再也不必更新关于包的配置。  
 
 **（二）下载并安装 RStudio**
 
@@ -154,13 +154,13 @@ abline(fit, col = 'red')
 - 在`Typeset LaTex into PDF using` 选择**XeLaTex**  
 - 在`Code => Saving => Default text Encoding` 选择 `UTF-8`    
 
-至此，已经可以完美运行R和纯英文的RMarkdown了。不过，如果还要用中文撰写RMarkdown文档，则需要安装Latex。
+至此，已经可以完美运行R和纯英文的RMarkdown了。不过，如果要用中文撰写RMarkdown文档，则需要安装LaTeX。
 
 最好每项工作都单独建立一个文件夹，把性质相同的文档归到同一个子目录（比如要插入的图形、需调用的参考文献、设置的格式和参数等等）。然后建立RStudio项目(project)，每次开始都打开这个project，这样项目的一切材料都会齐备，RStudio的工作目录不会搞乱。
 
 **（三）下载并安装 Texlive2019**
 
-到如下网址下载Texlive2019：https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/ ，下载文件 texlive2019-20190410.iso（3.3G），用解压缩软件Winrar解压，运行install-tl-windows.bat默认安装。软件很大，一般电脑安装时间要一个多小时。不过文件很齐全，安装后，就可以轻松驾驭著名的科技论文写作神器Latex了。也可以安装Latex前端LyX（https://www.lyx.org） ，写paper非常好用。
+到如下网址下载Texlive2019：https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/ ，下载文件 texlive2019-20190410.iso（3.3G），用解压缩软件Winrar解压，运行install-tl-windows.bat默认安装。软件很大，一般电脑安装时间要一个多小时。不过文件很齐全，安装后，就可以轻松驾驭著名的科技论文写作神器LaTeX了。也可以安装Latex前端LyX（https://www.lyx.org） ，写paper非常好用。
 
 有时用`xelatex`编译会很慢，往往是中文字体缓存刷新问题。
 解决办法：    
@@ -171,11 +171,7 @@ abline(fit, col = 'red')
 
 首先安装软件包 `bookdown`[@R-bookdown]及其相依软件包，R Markdown写作所需的包基本上就齐了。 `bookdown`包括了rmarkdown [@R-rmarkdown]、knitr [@R-knitr]、 rticles等，如果有包缺失，运行时会提示安装。
 
-* bookdown：https://bookdown.org/ 
-
-可以安装稳定版: `install.packages('bookdown')`
-
-或开发版: `devtools::install_github('rstudio/bookdown')`
+bookdownw网站：https://bookdown.org/， 可以安装稳定版: `install.packages('bookdown')`，也可以安装开发版: `devtools::install_github('rstudio/bookdown')`
 
 其次建议安装软件包 `tidyverse`，它包含了数据分析常用的几个核心包，包括:
 
@@ -240,7 +236,7 @@ colorlinks: yes                            #链接颜色
 
  **中文`pdf`文档**
   
-  首先要确保已经安装`bookdown`，因为中文pdf文档需要用到`rticles`，`tynytex`等软件包。中文pdf文档还需要用到`LaTex`套件，如`Texlive`，`MikTex`等。安装`bookdown`后，这些套件是否还需要安装，我不能确定。
+  首先要确保已经安装`bookdown`，因为中文pdf文档需要用到`rticles`，`tynytex`等软件包。中文pdf文档还需要用到`LaTeX`套件，如`Texlive`，`MikTex`等。安装`bookdown`后，这些套件是否还需要安装，我不能确定。
   
   创建简单的中文`pdf`文档，很简单：打开 R Markdown时，选择 `From Template`，从模版中选择 `CTex Documents`即可。
 
@@ -594,9 +590,9 @@ $$\begin{vmatrix}a & b\\
 c & d
 \end{vmatrix}=ad-bc$$
 
-这样的整行公式输出html格式非常简单，效果也好，但是如果要输出pdf或word，还要编号交互引用的话，就可能有问题。所以，如果除了网页格式外，还需要输出pdf等其它文档格式，最好还是用LaTex的公式环境。
+这样的整行公式输出html格式非常简单，效果也好，但是如果要输出pdf或word，还要编号交互引用的话，就可能有问题。所以，如果除了网页格式外，还需要输出pdf等其它文档格式，最好还是用LaTeX的公式环境。
 
-### LaTex公式环境
+### LaTeX公式环境
 
 **一行整行公式**：公式自动居中。
 
@@ -670,7 +666,7 @@ g(X_{n}) &= g(\theta)+g'({\tilde{\theta}})(X_{n}-\theta) \notag \\
 
 ### 参考手册
 
-LaTex参考手册：<https://wch.github.io/latexsheet/latexsheet-a4.pdf>
+LaTeX参考手册：<https://wch.github.io/latexsheet/latexsheet-a4.pdf>
 
 RStudio 的Help还有很多使用手册(Cheatsheets)，也可以去下载：<https://www.rstudio.com/resources/cheatsheets/>。
 
@@ -746,7 +742,7 @@ knitr::include_graphics('images/run.jpg')
 
 用 `include_graphics()` 插入图形有如下优点：
 
-1. 不必担心文档的输出格式。LaTex的pdf中插入图形命令是`\includegraphics{}`，在Markdown中插入图形命令是`![]()`，它们互相不认。而函数`include_graphics()` 会自动选择插入方式。
+1. 不必担心文档的输出格式。LaTeX的pdf中插入图形命令是`\includegraphics{}`，在Markdown中插入图形命令是`![]()`，它们互相不认。而函数`include_graphics()` 会自动选择插入方式。
 1. 无论是插入图形还是由R生成的图形，控制图形属性的指令（`out.width`等）都含义相同。
 1. 可以对所有图形设置相同的大小比例。如本文设置`out.width = '75%'`。
 
@@ -906,7 +902,7 @@ cofs <- summary(out)$coefficients
 knitr::kable(cofs, booktabs = TRUE,  caption = '回归系数及显著性检验结果')
 ```
 
-在LaTex的pdf中，表格和图形经常会浮动位置。如果不希望表格浮动（因此表格允许跨页），可以用LaTeX软件包[**longtable**](https://www.ctan.org/pkg/longtable)。
+在LaTeX的pdf中，表格和图形经常会浮动位置。如果不希望表格浮动（因此表格允许跨页），可以用LaTeX软件包[**longtable**](https://www.ctan.org/pkg/longtable)。
 当然，在html网页中不会出现这种情况，因为网页是不分页的。
 
 用法：在 `kable()`中指定`longtable = TRUE`。如
@@ -1029,7 +1025,7 @@ R Markdown没有交叉引用（cross-reference）功能，但是bookdown可以�
 
 ### 数学公式 {#equations}
 
-要给公式编号，先要建立公式环境。如果公式环境是 `$$...$$`，那么输出html完全没问题，但是pdf和word都表现不佳。所以，如果要输出pdf格式，最好统一建立LaTex公式环境，即 `\begin{equation}...\end{equation}`等。
+要给公式编号，先要建立公式环境。如果公式环境是 `$$...$$`，那么输出html完全没问题，但是pdf和word都表现不佳。所以，如果要输出pdf格式，最好统一建立LaTeX公式环境，即 `\begin{equation}...\end{equation}`等。
 
 然后标记 `(\#eq:label)`, 例如
 
@@ -1193,7 +1189,7 @@ knitr::include_graphics('images/RstudioGit.PNG')
 
 用R Markdown写研究性文章最大的优点是可以把数据分析的过程（不局限于R，也可以是Python等）和文章文本结合起来，写作过程中可以方便地进行修改，保持文章结果的可重复性。
 
-LaTex的一些前端（如LyX）也可以做到R运行与文本的结合，但必须全文编译后才能看到结果，不如R Markdown方便，可以在中间过程运行R代码块，随时查看部分计算结果。
+LaTeX的一些前端（如LyX）也可以做到R运行与文本的结合，但必须全文编译后才能看到结果，不如R Markdown方便，可以在中间过程运行R代码块，随时查看部分计算结果。
 
 总之，R Markdown简单易学，是做学习笔记、科学研究、撰写论文和书籍的好工具，值得花时间掌握。
 
