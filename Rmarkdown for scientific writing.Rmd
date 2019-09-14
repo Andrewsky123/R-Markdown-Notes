@@ -546,51 +546,67 @@ $$
 
 **矩阵和行列式公式**
 
+可以通过`\begin{array}`和`\end{array}`：
+
 ```latex
-$$\begin{array}{ccc}
+$$X=\left(\begin{array}{ccc}
 x_{11} & x_{12} & x_{13}\\
 x_{21} & x_{22} & x_{23}
-\end{array}$$
+\end{array}\right)$$
 ```
 
-$$\begin{array}{ccc}
+$$X=\left(\begin{array}{ccc}
 x_{11} & x_{12} & x_{13}\\
 x_{21} & x_{22} & x_{23}
-\end{array}$$
+\end{array}\right)$$
+
+也可以通过`\begin{matrix}`和`\end{matrix}`（有b，B，p，P，v，V等多种格式）：
 
 ```latex
-$$X = \begin{bmatrix}1 & x_{1}\\
-1 & x_{2}\\
-1 & x_{3}
-\end{bmatrix}$$
+$$\begin{matrix}a & b\\\\c &d\end{matrix}$$
+$$\begin{pmatrix}a & b\\\\c &d\end{pmatrix}$$
+$$\begin{bmatrix}a & b\\\\c &d\end{bmatrix}$$
+$$\begin{Bmatrix}a & b\\\\c &d\end{Bmatrix}$$
+$$\begin{vmatrix}a & b\\\\c &d\end{vmatrix}$$
+$$\left|\begin{matrix}a & b\\\\c &d\end{matrix}\right|$$
+$$\begin{Vmatrix}a & b\\\\c &dend{Vmatrix}$$
+```
+$$\begin{matrix}a & b\\\\c &d\end{matrix}$$
+
+$$\begin{pmatrix}a & b\\\\c &d\end{pmatrix}$$
+
+$$\begin{bmatrix}a & b\\\\c &d\end{bmatrix}$$
+
+$$\begin{Bmatrix}a & b\\\\c &d\end{Bmatrix}$$
+
+$$\begin{vmatrix}a & b\\\\c &d\end{vmatrix}$$
+
+$$\left|\begin{matrix}a & b\\\\c &d\end{matrix}\right|$$
+
+$$\begin{Vmatrix}a & b\\\\c & d \end{Vmatrix}$$
+
+
+分段函数：
+
+```markdown
+f(m,n)=
+\begin{cases}
+x(n) & x>0,\\
+0 & x=0,\\
+x(n-1) & x<0.
+\end{cases}
 ```
 
-$$X = \begin{bmatrix}1 & x_{1}\\
-1 & x_{2}\\
-1 & x_{3}
-\end{bmatrix}$$
+$$
+f(m,n)=
+\begin{cases}
+x(n) & x>0,\\
+0 & x=0,\\
+x(n-1) & x<0.
+\end{cases}
+$$
 
-```latex
-$$\Theta = \begin{pmatrix}\alpha & \beta\\
-\gamma & \delta
-\end{pmatrix}$$
-```
-
-$$\Theta = \begin{pmatrix}\alpha & \beta\\
-\gamma & \delta
-\end{pmatrix}$$
-
-```latex
-$$\begin{vmatrix}a & b\\
-c & d
-\end{vmatrix}=ad-bc$$
-```
-
-$$\begin{vmatrix}a & b\\
-c & d
-\end{vmatrix}=ad-bc$$
-
-这样的整行公式输出html格式非常简单，效果也好，但是如果要输出pdf或word，还要编号交互引用的话，就可能有问题。所以，如果除了网页格式外，还需要输出pdf等其它文档格式，最好还是用LaTeX的公式环境。
+这样的整行公式输出html格式非常简单，效果也好。但是，如果要输出pdf文档或word文档，并且公式、图表的编号还要交互引用的话，就可能有问题。所以，一般情况下，建议用LaTeX的公式环境。
 
 ### LaTeX公式环境
 
@@ -663,6 +679,7 @@ g(X_{n}) &= g(\theta)+g'({\tilde{\theta}})(X_{n}-\theta) \notag \\
  & =(X'X)^{-1}\sigma^{2}
 \end{split} (\#eq:multi-eq)
 \end{equation}
+
 
 ### 参考手册
 
